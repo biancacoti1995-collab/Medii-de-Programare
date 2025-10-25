@@ -15,5 +15,7 @@ namespace Coti_Bianca_Lab2.Models
         public string LastName { get; set; }
 
         public ICollection<Book>? Books { get; set; }
+
+        public string FullName => $"{LastName} {FirstName}";
     }
 }

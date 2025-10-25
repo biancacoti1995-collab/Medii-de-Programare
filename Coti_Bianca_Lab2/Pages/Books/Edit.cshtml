@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Books"
 @model Coti_Bianca_Lab2.Pages.Books.EditModel
 
 @{
@@ -35,6 +35,23 @@
                 </select>
                 <span asp-validation-for="Book.PublisherID" class="text-danger"></span>
             </div>
+            <div class="form-group">
+        <div class="table">
+        <table>
+      <tr>
+          @foreach (var cat in Model.AssignedCategoryDataList)
+{
+    <input type="checkbox"
+           name="selectedCategories"
+           value="@cat.CategoryID"
+           @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
+    @cat.Name <br />
+}
+ 
+ </table>
+ </div>
+ </div> 
+
             <div class="form-group">
                 <label asp-for="Book.AuthorID" class="control-label"></label>
                 <select asp-for="Book.AuthorID" class="form-control"

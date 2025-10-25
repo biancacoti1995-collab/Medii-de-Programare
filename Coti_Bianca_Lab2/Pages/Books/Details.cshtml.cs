@@ -12,9 +12,9 @@ namespace Coti_Bianca_Lab2.Pages.Books
 {
     public class DetailsModel : PageModel
     {
-        private readonly Coti_Bianca_Lab2.Data.Coti_Bianca_Lab2Context _context;
+        private readonly Coti_Bianca_Lab2Context _context;
 
-        public DetailsModel(Coti_Bianca_Lab2.Data.Coti_Bianca_Lab2Context context)
+        public DetailsModel(Coti_Bianca_Lab2Context context)
         {
             _context = context;
         }
@@ -28,16 +28,23 @@ namespace Coti_Bianca_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+           
+            Book = await _context.Book
+                .Include(b => b.Author)
+                .Include(b => b.Publisher)
+                .Include(b => b.BookCategories)
+                    .ThenInclude(bc => bc.Category)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Book == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Book = book;
-            }
+
             return Page();
         }
     }
 }
+
+
