@@ -28,20 +28,5 @@ namespace Coti_Bianca_Lab2.Pages.Books
 
         [BindProperty]
         public Book Book { get; set; } = default!;
-
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewData["AuthorID"] = new SelectList(_context.Authors, "ID", "LastName");
-                return Page();
-            }
-
-            _context.Book.Add(Book);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
     }
 }
